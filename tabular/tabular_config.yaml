@@ -1,0 +1,13 @@
+feature_cols: [
+    'RadialStain',
+    'CircumferentialStrain',
+    'Sex',
+    'Fam History SCD',
+    'Max LV wall thickness(mm)',
+    'Left atrial diameter(cm)',
+    'LV ejection fraction %'
+]
+train_data: /Users/ching-yuan/Documents/HCM/merged_patient_data.csv
+val_data: /Users/ching-yuan/Documents/HCM/merged_patient_data.csv
+model: TabPFN
+save_dir: /Users/ching-yuan/Documents/HCM/results
