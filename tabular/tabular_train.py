@@ -1,5 +1,6 @@
 import xgboost as xgb
 from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc, accuracy_score
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import seaborn as sns
 from tabpfn import TabPFNClassifier
@@ -86,11 +87,16 @@ with open(args.config, 'r') as f:
 
 feature_cols = config['feature_cols']
 train_tabular = pd.read_csv(config['train_data'])
-val_tabular = pd.read_csv(config['val_data'])
+if config['val_data'] == "None":
+    train_tabular, val_tabular = train_test_split(train_tabular, test_size=0.2, random_state=42)
+else:
+    val_tabular = pd.read_csv(config['val_data'])
 
 
 
-
+if feature_cols == "all":
+    feature_cols = train_tabular.columns.tolist()
+    feature_cols.remove("label")  # assuming 'label' is the target column
 X_train = train_tabular[feature_cols]
 y_train = train_tabular["label"]
 X_test = val_tabular[feature_cols]
